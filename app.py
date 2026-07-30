@@ -6,10 +6,12 @@ import json
 import re
 # Import requests to perform OpenAI-compatible REST API requests to Docker Model Runner.
 import requests
+# Import os to retrieve configuration from environment variables.
+import os
 
-# Hardcoded environment defaults.
-MODEL_RUNNER_URL = "http://model-runner.docker.internal:12434/engines/v1"
-MODEL_NAME = "ai/granite-4.0-h-micro"
+# Environment-configurable defaults, reading from environment variables if defined.
+MODEL_RUNNER_URL = os.getenv("AI_MODEL_URL", "http://model-runner.docker.internal:12434/engines/v1")
+MODEL_NAME = os.getenv("AI_MODEL_NAME", "ai/granite-4.0-h-micro")
 
 # Define ANSI escape codes for beautiful output coloring.
 COLOR_GREY = "\033[90m"     # Grey color used for internal thinking, logs, and unverified streamed answers.

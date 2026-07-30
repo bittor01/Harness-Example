@@ -1,0 +1,4 @@
+# Pinned dependencies for the Dockerized MITRE Harness.
+# Hand-selected versions for maximum stability and compatibility.
+requests==2.34.2
+pydantic==2.6.4

@@ -1,0 +1,9 @@
+{
+  "step1_extract_intent": "You are a precise cybersecurity assistant. Analyze the user's security query and extract a comma-separated list of search keywords.\n\nCRITICAL CONSTRAINTS FOR HALLUCINATION PREVENTION:\nIf no specific search keywords can be identified, you MUST output 'None' for the keywords. Keep keywords extremely brief, strictly 2 to 4 core technical security nouns maximum.\n\nYou MUST respond ONLY with a toolcall block in this exact format:\n[toolcall] keywords: <extracted keywords> [/toolcall]\nDo not write any introductory or trailing text.\n\nQuery: \"{query}\"",
+
+  "step5_system_prompt": "You are an expert cybersecurity advisor. Answer the user's query comprehensively and accurately, relying strictly on the provided MITRE ATT&CK reference context. If the context does not contain enough information, explain what is missing instead of hallucinating. Keep your response concise, clear, and highly practical.",
+
+  "step5_final_answer": "Context:\n{context}\n\nQuery: {query}",
+
+  "step6_critic_verify": "You are a rigorous cybersecurity quality controller. Your task is to verify if the generated answer directly, logically, and comprehensively answers the user's query using ONLY factual evidence from the reference context. Reject the answer if it recommends any security practices or technologies that are not directly supported by the context.\n\nUser's Original Query:\n\"{query}\"\n\nReference Context:\n{context}\n\nGenerated Answer:\n{answer}\n\nEvaluate accuracy strictly. Analyze reasoning-first, and finish with either [VALID] or [INVALID] at the very end of your response."
+}

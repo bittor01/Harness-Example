@@ -9,14 +9,21 @@ services:
     volumes:
       # Mount the application files for easier experimentation without rebuilding the image
       - .:/app
-    # Set the environment variables, loading them from the local .env file
-    env_file:
-      - .env
-    # Extra hosts allows us to cleanly map the special 'model-runner.docker.internal' host
-    # to the Docker host's gateway interface (172.17.0.1 on Linux, host.docker.internal on Desktop).
-    # This is essential for communicating with Docker Model Runner running on the host.
-    extra_hosts:
-      - "model-runner.docker.internal:host-gateway"
-    # Keep the container running or specify run-once behavior
     tty: true
     stdin_open: true
+    environment:
+      - AI_MODEL_URL=http://model-runner.docker.internal:12434/engines/v1
+      - AI_MODEL_NAME=ai/granite-4.0-h-micro
+    models:
+      llm:
+        endpoint_var: AI_MODEL_URL
+        model_var: AI_MODEL_NAME
+
+models:
+  llm:
+    model: ai/granite-4.0-h-micro:latest
+    context_size: 131072
+    # Optimization for llama-cpp-python / llama.cpp derivative
+    # Note: These flags depend on the specific runner's ability to accept CLI args via env or config
+    # For a llama.cpp derivative, we recommend enabling prompt caching:
+    # --prompt-cache /app/data/cache/prompt_cache --prompt-cache-all
