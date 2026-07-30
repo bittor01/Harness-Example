@@ -1,0 +1,22 @@
+version: "3.8"
+
+services:
+  harnessexample:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: harnessexample
+    volumes:
+      # Mount the application files for easier experimentation without rebuilding the image
+      - .:/app
+    # Set the environment variables, loading them from the local .env file
+    env_file:
+      - .env
+    # Extra hosts allows us to cleanly map the special 'model-runner.docker.internal' host
+    # to the Docker host's gateway interface (172.17.0.1 on Linux, host.docker.internal on Desktop).
+    # This is essential for communicating with Docker Model Runner running on the host.
+    extra_hosts:
+      - "model-runner.docker.internal:host-gateway"
+    # Keep the container running or specify run-once behavior
+    tty: true
+    stdin_open: true
