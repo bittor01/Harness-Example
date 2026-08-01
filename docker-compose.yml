@@ -5,7 +5,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: harnessexample
+    container_name: harness-example
     volumes:
       # Mount the application files for easier experimentation without rebuilding the image
       - .:/app
